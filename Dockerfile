@@ -65,6 +65,18 @@ RUN cd /tmp \
     && docker-php-ext-enable swoole
 # swoole end
 
+# aiad-enc start
+ENV aiad_enc_src=aiad-enc-1.0.0
+COPY thirdparty/${aiad_enc_src}.tar.gz /tmp/
+RUN cd /tmp \
+    && tar zxf ${aiad_enc_src}.tar.gz && rm -f ${aiad_enc_src}.tar.gz \
+    && cd ${aiad_enc_src} \
+    && phpize && ./configure \
+    && make && make install \
+    && rm -rf /tmp/${aiad_enc_src} \
+    && docker-php-ext-enable aiadenc
+# aiad-enc end
+
 RUN apt-get install -y wget libssh2-1-dev
 RUN pecl install ssh2-1.2 \
     && docker-php-ext-enable ssh2
