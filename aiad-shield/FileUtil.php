@@ -5,10 +5,10 @@ class FileUtil
     /**
      * 创建目录
      * @param string  $dirPath     需要创建的目录
-     * @param integer $permissions 目录权限
+     * @param int $permissions 目录权限
      * @return bool
      */
-    static function createDirectory($dirPath, $permissions = 0755)
+    public static function createDirectory(string $dirPath, int $permissions = 0755): bool
     {
         if (!is_dir($dirPath)) {
             try {
@@ -27,7 +27,7 @@ class FileUtil
      * @param bool   $keepStructure 是否保持目录结构
      * @return bool
      */
-    static function cleanDirectory($dirPath, $keepStructure = false)
+    public static function cleanDirectory(string $dirPath, bool $keepStructure = false): bool
     {
         $scanResult = static::scanDirectory($dirPath);
         if (!$scanResult) return false;
@@ -49,7 +49,7 @@ class FileUtil
      * @param $dirPath
      * @return bool
      */
-    static function deleteDirectory($dirPath)
+    public static function deleteDirectory(string $dirPath): bool
     {
         $dirPath = realpath($dirPath);
         if (!is_dir($dirPath)) return false;
@@ -64,7 +64,7 @@ class FileUtil
      * @param bool   $overwrite 是否覆盖目标文件
      * @return bool
      */
-    static function copyDirectory($source, $target, $overwrite = true)
+    public static function copyDirectory(string $source, string $target, bool $overwrite = true): bool
     {
         $scanResult = static::scanDirectory($source);
         if (!$scanResult) return false;
@@ -89,7 +89,7 @@ class FileUtil
      * @param bool   $overwrite 是否覆盖目标文件
      * @return bool
      */
-    static function moveDirectory($source, $target, $overwrite = true)
+    public static function moveDirectory(string $source, string $target, bool $overwrite = true): bool
     {
         $scanResult = static::scanDirectory($source);
         if (!$scanResult) return false;
@@ -115,7 +115,7 @@ class FileUtil
      * @param bool   $overwrite 是否覆盖目标文件
      * @return bool
      */
-    static function copyFile($source, $target, $overwrite = true)
+    public static function copyFile(string $source, string $target, bool $overwrite = true): bool
     {
         if (!file_exists($source)) return false;
         if (file_exists($target) && $overwrite == false) return false;
@@ -129,11 +129,11 @@ class FileUtil
 
     /**
      * 创建一个空文件
-     * @param $filePath
-     * @param $overwrite
+     * @param string $filePath
+     * @param bool $overwrite
      * @return bool
      */
-    static function touchFile($filePath, $overwrite = true)
+    public static function touchFile(string $filePath, bool $overwrite = true): bool
     {
         if (file_exists($filePath) && $overwrite == false) {
             return false;
@@ -156,12 +156,12 @@ class FileUtil
 
     /**
      * 创建一个有内容的文件
-     * @param      $filePath
-     * @param      $content
+     * @param string $filePath
+     * @param string $content
      * @param bool $overwrite
      * @return bool
      */
-    static function createFile($filePath, $content, $overwrite = true)
+    public static function createFile(string $filePath, string $content, bool $overwrite = true): bool
     {
         if (static::touchFile($filePath, $overwrite)) {
             return (bool)file_put_contents($filePath, $content);
@@ -177,7 +177,7 @@ class FileUtil
      * @param bool   $overwrite 是否覆盖目标文件
      * @return bool
      */
-    static function moveFile($source, $target, $overwrite = true)
+    public static function moveFile(string $source, string $target, bool $overwrite = true): bool
     {
         if (!file_exists($source)) return false;
         if (file_exists($target) && $overwrite == false) return false;
@@ -194,7 +194,7 @@ class FileUtil
      * @param string $dirPath
      * @return array|bool
      */
-    static function scanDirectory($dirPath)
+    public static function scanDirectory(string $dirPath): ?array
     {
         if (!is_dir($dirPath)) return false;
         $dirPath = rtrim($dirPath,'/') . '/';
@@ -225,6 +225,6 @@ class FileUtil
             return false;
         }
 
-        return [ 'files' => $fileContainer, 'dirs' => $dirContainer ];
+        return ['files' => $fileContainer, 'dirs' => $dirContainer];
     }
 }
