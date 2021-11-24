@@ -1,6 +1,6 @@
 <?php
 
-namespace Aiadtech\Shield\Util;
+namespace Aiadtech\Shield;
 
 class FileUtil
 {

@@ -75,8 +75,6 @@ RUN cd /tmp \
     && make && make install \
     && rm -rf /tmp/${aiad_shield_src} \
     && docker-php-ext-enable aiad_shield
-
-
 # aiad-enc end
 
 RUN apt-get install -y wget libssh2-1-dev
@@ -92,7 +90,7 @@ RUN chmod +x /etc/entrypoint.sh
 ENTRYPOINT ["/etc/entrypoint.sh"]
 
 COPY html /var/www/html
-COPY php/code-encrypt /usr/local/etc/php/code-encrypt
+COPY aiad-shield /usr/local/etc/php/aiad-shield
 COPY php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 RUN echo "* soft nofile 655360" >> /etc/security/limits.conf \

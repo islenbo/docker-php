@@ -2,7 +2,7 @@
 
 $file = $argv[1];
 
-$list = \Aiadtech\Shield\Util\FileUtil::scanDirectory($file)['files'];
+$list = \Aiadtech\Shield\FileUtil::scanDirectory($file)['files'];
 foreach ($list as $file) {
     if ($fp = fopen($file, 'rb+') and $fileSize = filesize($file)) {
         $data = aiadenc_encode(fread($fp, $fileSize));
