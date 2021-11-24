@@ -1,8 +1,10 @@
 <?php
 
+include_once './FileUtil.php';
+
 $file = $argv[1];
 
-$list = \Aiadtech\Shield\FileUtil::scanDirectory($file)['files'];
+$list = FileUtil::scanDirectory($file)['files'];
 foreach ($list as $file) {
     if ($fp = fopen($file, 'rb+') and $fileSize = filesize($file)) {
         $data = aiadenc_encode(fread($fp, $fileSize));

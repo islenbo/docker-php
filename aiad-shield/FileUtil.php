@@ -1,7 +1,5 @@
 <?php
 
-namespace Aiadtech\Shield;
-
 class FileUtil
 {
     /**
