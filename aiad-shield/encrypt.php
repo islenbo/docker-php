@@ -1,6 +1,6 @@
 <?php
 
-include_once './FileUtil.php';
+include_once __DIR__ . '/FileUtil.php';
 
 $file = $argv[1];
 
