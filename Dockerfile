@@ -66,14 +66,13 @@ RUN cd /tmp \
 # swoole end
 
 # aiad-enc start
-ENV aiad_shield_src=aiad-shield-1.0.0
+ENV aiad_shield_src=aiad-shield
 COPY thirdparty/${aiad_shield_src}.tar.gz /tmp/
 RUN cd /tmp \
     && tar zxf ${aiad_shield_src}.tar.gz && rm -f ${aiad_shield_src}.tar.gz \
     && cd ${aiad_shield_src} \
     && phpize && ./configure \
     && make && make install \
-    && rm -rf /tmp/${aiad_shield_src} \
     && docker-php-ext-enable aiad_shield
 # aiad-enc end
 
@@ -90,7 +89,6 @@ RUN chmod +x /etc/entrypoint.sh
 ENTRYPOINT ["/etc/entrypoint.sh"]
 
 COPY html /var/www/html
-COPY aiad-shield /usr/local/bin/aiad-shield
 COPY php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 RUN echo "* soft nofile 655360" >> /etc/security/limits.conf \
