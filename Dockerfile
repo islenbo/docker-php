@@ -52,7 +52,7 @@ RUN cd /tmp \
     && docker-php-ext-enable swoole
 # swoole end
 
-# xlswriter end
+# xlswriter start
 ENV XLSWRITER_NAME=xlswriter-1.3.7.tgz
 COPY thirdparty/${XLSWRITER_NAME} /tmp
 RUN cd /tmp \
